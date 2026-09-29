@@ -1,0 +1,91 @@
+{
+  "route": "relational",
+  "business_context": "B2B SaaS Cloud platform with relational subscriptions and customer billing accounts",
+  "config": {
+    "row_count": 25,
+    "edge_case_rate": 0.04,
+    "privacy_controls": [
+      {
+        "column": "contact_email",
+        "action": "mask"
+      }
+    ],
+    "locale_settings": {
+      "locale": "en_US",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "tax_rate": 0.08
+    }
+  },
+  "schemas": [
+    {
+      "table_name": "accounts",
+      "row_count": 8,
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "integer",
+          "is_primary_key": true
+        },
+        {
+          "name": "company_name",
+          "type": "string"
+        },
+        {
+          "name": "contact_email",
+          "type": "email"
+        },
+        {
+          "name": "plan_tier",
+          "type": "string",
+          "allowed_values": ["GROWTH", "SCALE", "ENTERPRISE"]
+        },
+        {
+          "name": "created_date",
+          "type": "datetime"
+        }
+      ]
+    },
+    {
+      "table_name": "subscriptions",
+      "row_count": 25,
+      "columns": [
+        {
+          "name": "subscription_id",
+          "type": "uuid",
+          "is_primary_key": true
+        },
+        {
+          "name": "account_id",
+          "type": "integer",
+          "foreign_key_target": "accounts.account_id"
+        },
+        {
+          "name": "monthly_mrr",
+          "type": "currency",
+          "min_value": 499.0,
+          "max_value": 7500.0
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "allowed_values": ["ACTIVE", "TRIAL", "PAST_DUE", "CANCELED"]
+        },
+        {
+          "name": "billing_cycle",
+          "type": "string",
+          "allowed_values": ["MONTHLY", "ANNUAL"]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "parent_table": "accounts",
+      "child_table": "subscriptions",
+      "parent_key": "account_id",
+      "child_key": "account_id",
+      "cardinality": "1:N"
+    }
+  ]
+}

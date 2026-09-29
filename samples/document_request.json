@@ -1,0 +1,16 @@
+{
+  "route": "document",
+  "document_template": "invoice",
+  "business_context": "Global enterprise infrastructure consumption invoices with itemized reconciliation",
+  "config": {
+    "document_volume": 3,
+    "edge_case_rate": 0.0,
+    "privacy_controls": [],
+    "locale_settings": {
+      "locale": "en_US",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "tax_rate": 0.0825
+    }
+  }
+}

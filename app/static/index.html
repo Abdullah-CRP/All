@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HackDataV2 | Enterprise Synthetic Data Platform</title>
+  <meta name="description" content="HackDataV2: High-performance AI Synthetic Data Generation Platform with RAG Routing, Relational Referential Integrity, and Document Reconciliation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <div class="logo-gem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-title">
+            <span class="gradient-text">HackData</span><span class="badge-v2">V2</span>
+          </div>
+          <p class="logo-subtitle">Synthetic Data Platform &bull; Gemini LLM Engine</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="system-status-pill" id="system-status-indicator">
+          <span class="status-dot"></span>
+          <span id="system-status-text">Engine Ready</span>
+        </div>
+        <a href="/docs" target="_blank" class="nav-btn outline-btn" id="docs-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          FastAPI Docs
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 5-Step Pipeline Live Progress Bar -->
+  <section class="pipeline-bar-section">
+    <div class="pipeline-track">
+      <div class="step-node" id="step-node-1" data-step="1">
+        <div class="step-circle"><span class="step-num">1</span></div>
+        <div class="step-label">
+          <strong>Ingestion & RAG</strong>
+          <small>Type & Key Inference</small>
+        </div>
+      </div>
+      <div class="step-connector" id="connector-1"></div>
+
+      <div class="step-node" id="step-node-2" data-step="2">
+        <div class="step-circle"><span class="step-num">2</span></div>
+        <div class="step-label">
+          <strong>Constraints</strong>
+          <small>Edge Cases & Privacy</small>
+        </div>
+      </div>
+      <div class="step-connector" id="connector-2"></div>
+
+      <div class="step-node" id="step-node-3" data-step="3">
+        <div class="step-circle"><span class="step-num">3</span></div>
+        <div class="step-label">
+          <strong>Synthesis</strong>
+          <small>Pandas / Gemini Core</small>
+        </div>
+      </div>
+      <div class="step-connector" id="connector-3"></div>
+
+      <div class="step-node" id="step-node-4" data-step="4">
+        <div class="step-circle"><span class="step-num">4</span></div>
+        <div class="step-label">
+          <strong>Reconciliation</strong>
+          <small>Referential & Math Check</small>
+        </div>
+      </div>
+      <div class="step-connector" id="connector-4"></div>
+
+      <div class="step-node" id="step-node-5" data-step="5">
+        <div class="step-circle"><span class="step-num">5</span></div>
+        <div class="step-label">
+          <strong>Delivery</strong>
+          <small>validation_status: "passed"</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="main-container">
+    <!-- Left Configuration Panel -->
+    <aside class="config-panel">
+      <!-- Quick Templates -->
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <h3>Enterprise Scenarios</h3>
+        </div>
+        <p class="card-description">Instantly load production schemas & business rules</p>
+        <div class="template-selector-grid">
+          <button class="template-pill active" id="btn-tmpl-relational" data-template="relational_ecommerce">
+            <span class="pill-dot emerald"></span> Relational E-Commerce (1:N)
+          </button>
+          <button class="template-pill" id="btn-tmpl-invoice" data-template="document_invoice">
+            <span class="pill-dot cyan"></span> Document Invoice (Reconciled)
+          </button>
+          <button class="template-pill" id="btn-tmpl-statement" data-template="document_statement">
+            <span class="pill-dot purple"></span> Bank Statement (Ledger)
+          </button>
+          <button class="template-pill" id="btn-tmpl-tabular" data-template="tabular_fintech">
+            <span class="pill-dot amber"></span> Tabular FinTech (Privacy Safe)
+          </button>
+        </div>
+      </div>
+
+      <!-- Pipeline Route & Generation Controls -->
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="card-icon">⚙️</div>
+          <h3>Generation Controls</h3>
+        </div>
+
+        <div class="form-group">
+          <label for="route-select">Pipeline Routing Target</label>
+          <select id="route-select" class="custom-select">
+            <option value="auto">Auto-Detect via RAG (Step 1)</option>
+            <option value="relational">Relational Module (1:1, 1:N, N:M)</option>
+            <option value="tabular">Tabular Module (Single Table)</option>
+            <option value="document">Document Module (Invoices/Ledgers)</option>
+          </select>
+        </div>
+
+        <div class="grid-2col">
+          <div class="form-group">
+            <label for="row-count-input">Row / Record Count</label>
+            <input type="number" id="row-count-input" class="custom-input" value="20" min="1" max="500">
+          </div>
+          <div class="form-group">
+            <label for="edge-case-input">Edge Case Rate (%)</label>
+            <div class="range-with-val">
+              <input type="range" id="edge-case-input" min="0" max="30" value="5" class="custom-slider">
+              <span id="edge-case-val" class="slider-display">5%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Privacy Controls (Active Rules)</label>
+          <div class="privacy-tags" id="privacy-tags-container">
+            <span class="badge privacy-badge">email: mask (*)</span>
+            <span class="badge privacy-badge">salary: differential noise (ε=0.3)</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="locale-select">Locale & Currency</label>
+          <select id="locale-select" class="custom-select">
+            <option value="USD|$|0.0825">USD ($) - US Tax 8.25%</option>
+            <option value="EUR|€|0.19">EUR (€) - EU VAT 19.0%</option>
+            <option value="GBP|£|0.20">GBP (£) - UK VAT 20.0%</option>
+            <option value="CAD|C$|0.13">CAD (C$) - CA HST 13.0%</option>
+          </select>
+        </div>
+
+        <button id="btn-execute-pipeline" class="btn primary-action-btn glow-button">
+          <span class="btn-spinner hidden" id="action-spinner"></span>
+          <span class="btn-text">Execute 5-Step Pipeline</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+
+      <!-- JSON Payload Editor Card -->
+      <div class="card glass-card">
+        <div class="card-header space-between">
+          <div class="header-left">
+            <div class="card-icon">📝</div>
+            <h3>Input JSON Payload</h3>
+          </div>
+          <button id="btn-format-json" class="btn mini-btn">Format JSON</button>
+        </div>
+        <textarea id="json-editor" class="code-editor" spellcheck="false" rows="12"></textarea>
+      </div>
+    </aside>
+
+    <!-- Right Results & Visualization Panel -->
+    <section class="results-panel">
+      <!-- Live Metrics & Verification Banner -->
+      <div class="status-banner glass-card" id="status-banner">
+        <div class="banner-left">
+          <div class="validation-badge status-passed" id="validation-pill">
+            <span class="badge-icon">✓</span>
+            <span id="validation-text">validation_status: "passed"</span>
+          </div>
+          <span class="metric-pill" id="route-pill">Route: Relational</span>
+          <span class="metric-pill" id="time-pill">Execution: 42ms</span>
+          <span class="metric-pill" id="anomalies-pill">Edge Cases: 2</span>
+        </div>
+        <div class="banner-right">
+          <div class="export-dropdown">
+            <button class="btn export-btn" id="btn-export-dropdown">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export Dataset
+            </button>
+            <div class="dropdown-menu hidden" id="export-menu">
+              <button class="menu-item" id="export-csv">Download CSV</button>
+              <button class="menu-item" id="export-json">Download JSON</button>
+              <button class="menu-item" id="export-md">Download Markdown</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audit & Integrity Checks Log Accordion -->
+      <div class="card glass-card audit-card">
+        <div class="card-header space-between clickable" id="audit-toggle">
+          <div class="header-left">
+            <div class="card-icon">🛡️</div>
+            <h3>Pipeline Reconciliation & Integrity Audit</h3>
+          </div>
+          <span class="toggle-icon" id="audit-toggle-arrow">▼</span>
+        </div>
+        <div class="audit-body" id="audit-content">
+          <div class="audit-item verified">
+            <span class="check-icon">✓</span>
+            <span id="audit-ref-log">Referential integrity verified: Foreign key constraints and cardinalities passed with 0 orphan records.</span>
+          </div>
+          <div class="audit-item verified">
+            <span class="check-icon">✓</span>
+            <span id="audit-math-log">Mathematical reconciliation verified: Subtotals, taxes, and grand totals balance with 0.00 variance.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output View Tabs -->
+      <div class="output-tabs-container">
+        <div class="tab-buttons" id="table-tab-buttons">
+          <!-- Dynamically populated table tabs or document view -->
+          <button class="tab-btn active" data-tab="tab-preview">Table Preview</button>
+          <button class="tab-btn" data-tab="tab-raw">Raw JSON Response</button>
+          <button class="tab-btn" data-tab="tab-doc-render" id="doc-render-tab-btn" style="display:none;">Document View</button>
+        </div>
+
+        <!-- Table View Tab -->
+        <div class="tab-pane active" id="tab-preview">
+          <div class="table-container glass-card" id="table-display-wrapper">
+            <div class="table-toolbar">
+              <div class="table-selector-group" id="sub-table-selector">
+                <!-- Selectors for multi-table relational view -->
+              </div>
+              <div class="table-stats-bar" id="table-stats-info">
+                <span>Total Rows: 25</span> &bull; <span>Pandas Validated</span>
+              </div>
+            </div>
+            <div class="table-scroll-area">
+              <table class="data-table" id="output-data-table">
+                <thead id="data-table-head"></thead>
+                <tbody id="data-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Document Preview Tab -->
+        <div class="tab-pane" id="tab-doc-render">
+          <div class="document-view-container glass-card" id="document-preview-box">
+            <!-- Rendered HTML/Markdown of Invoice or Bank Statement -->
+          </div>
+        </div>
+
+        <!-- Raw JSON Response Tab -->
+        <div class="tab-pane" id="tab-raw">
+          <div class="code-view-container glass-card">
+            <pre><code id="raw-json-code"></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>HackDataV2 &bull; Core Gemini Synthetic Data Engine &bull; FastAPI + Pandas + Supabase &bull; High Performance Synthetic Generation</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

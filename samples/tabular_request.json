@@ -1,0 +1,68 @@
+{
+  "route": "tabular",
+  "business_context": "High-growth fintech risk scoring and KYC user base",
+  "config": {
+    "row_count": 20,
+    "edge_case_rate": 0.10,
+    "privacy_controls": [
+      {
+        "column": "email",
+        "action": "mask",
+        "mask_char": "*"
+      },
+      {
+        "column": "annual_salary",
+        "action": "differential_noise",
+        "noise_epsilon": 0.3
+      }
+    ],
+    "locale_settings": {
+      "locale": "en_US",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "tax_rate": 0.0825
+    }
+  },
+  "schemas": [
+    {
+      "table_name": "fintech_customers",
+      "row_count": 20,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "uuid",
+          "is_primary_key": true
+        },
+        {
+          "name": "full_name",
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "type": "email"
+        },
+        {
+          "name": "annual_salary",
+          "type": "currency",
+          "min_value": 45000,
+          "max_value": 185000
+        },
+        {
+          "name": "credit_rating",
+          "type": "integer",
+          "min_value": 520,
+          "max_value": 850
+        },
+        {
+          "name": "kyc_status",
+          "type": "string",
+          "allowed_values": ["VERIFIED", "PENDING", "UNDER_REVIEW", "REJECTED"]
+        },
+        {
+          "name": "registered_at",
+          "type": "datetime"
+        }
+      ]
+    }
+  ]
+}
